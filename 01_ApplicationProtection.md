@@ -8,7 +8,7 @@
    2. [NGINX App Protect Modules](#nginx-app-protect-modules)
    3. [Processing Order for App Protect DoS and WAF](#processing-order-for-app-protect-dos-and-waf)
 3. [NGINX Context](#NGINX-Context)
-4. [Loading NGINX App Protect WAF Module](#nginx-context-loading-nginx-app-protect-waf-module)
+4. [Loading NGINX App Protect WAF Module](#loading-nginx-app-protect-waf-module)
 
 ---
 
@@ -68,6 +68,3 @@ App Protect works like other NGINX modules in that once you’ve installed it, y
 
 This will activate the App Protect WAF module and allow it to inspect incoming HTTP requests.
 
---- 
-
-Let me know if you need further changes!
