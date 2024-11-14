@@ -22,31 +22,24 @@ For example, if the incoming request packet header is malformed, then NGINX will
 
 ## Request Flow Overview
 
-### Initial Request Processing by NGINX
+The NGINX process looks at the incoming HTTP request first and decides whether to reject it or allow it to continue to the NGINX App Protect modules to further investigate the request and reject if necessary.
 
-When an incoming HTTP request is received, the NGINX process first inspects the request. If the request is malformed or deemed suspicious, NGINX may reject it outright, preventing further inspection by other security modules. For instance, if the packet header is malformed, NGINX will drop the request before it reaches NGINX App Protect (which includes both the DoS and WAF modules).
+For example, if the incoming request packet header is malformed, then NGINX will drop the request before NGINX App Protect (DoS/WAF) gets to look at the request. There are other NGINX modules that run after App Protect WAF, the most common being NGINX access (allow/deny per IP) and NGINX auth.
 
-### NGINX App Protect Modules
-
-NGINX App Protect provides two primary security modules for analyzing incoming requests:
-
-- **App Protect DoS (Denial of Service)**: This module inspects requests for signs of DDoS or other denial of service attacks.
-- **App Protect WAF (Web Application Firewall)**: This module inspects requests for security threats targeting application vulnerabilities, such as SQL injection, cross-site scripting (XSS), etc.
-
----
-
-### Processing Order for App Protect DoS and WAF
-
-If you have both NGINX App Protect DoS and NGINX App Protect WAF installed, then the processing order for an incoming request is as follows:
-
-1. **NGINX Initial Check**: NGINX looks at the request first and if it doesn’t drop the request, it will pass it to the App Protect DoS module.
-2. **App Protect DoS Module**: The App Protect DoS module inspects the request. If it doesn’t reject the request, it passes the request to the App Protect WAF module.
-3. **App Protect WAF Module**: The App Protect WAF module inspects the request for web application attacks.
-4. **NGINX Final Processing**: If the request is not rejected by either of the App Protect modules, control goes back to NGINX for final handling (such as load balancing, serving content, etc.).
+If you have both NGINX App Protect DoS and NGINX App Protect WAF installed then the processing order for an incoming request is: NGINX looks at the request first and if it doesn't drop the request, it will pass it to the App Protect DoS module, which will look at the request, and then if it doesn't reject the request, it will then pass the request on to the App Protect WAF module and if it's not rejected then control goes back to NGINX.
 
 ---
 
 ## NGINX Context: 
+
+Each Nginx configuration file should follow certain structure so that it can be parsed by the runtime. There are two types of configurations in Nginx: directive and block. 
+
+- Directive: A directive is a single line configuration that ends with a semicolon.
+- Block: A block is a container for a group of directives that are enclosed by curly brackets / braces. A block is assigned a name that precedes the opening curly bracket. The block name indicates the circumstances that necessitates grouping of the enclosed directives. Hence, a block is often referred to as a context.
+![image](https://github.com/user-attachments/assets/eb2898dd-a271-4936-96f0-5b0440bfa99c)
+
+![image](https://github.com/user-attachments/assets/648c7064-4d07-4fbf-a251-6e36bec329ac)
+
 
 ## Loading NGINX App Protect WAF Module
 
