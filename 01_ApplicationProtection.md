@@ -1,5 +1,3 @@
-# NGINX Request Flow with NGINX App Protect
-
 ## Table of Contents
 
 1. [Introduction](#introduction)
@@ -16,10 +14,12 @@
 
 ## Introduction
 
+F5 NGINX App Protect WAF provides web application firewall (WAF) security protection for your web applications, including OWASP Top 10; response inspection; Meta characters check; HTTP protocol compliance; evasion techniques; disallowed file types; JSON & XML well-formedness; sensitive parameters & Data Guard. NGINX App Protect is supported in all of these environments – you can install it on bare metal (physical hardware without virtualization), on a virtual machine, in a container, and in the cloud.
+
+
 The NGINX process looks at the incoming HTTP request first and decides whether to reject it or allow it to continue to the NGINX App Protect modules to further investigate the request and reject if necessary.
 
 For example, if the incoming request packet header is malformed, then NGINX will drop the request before NGINX App Protect (DoS/WAF) gets to look at the request. There are other NGINX modules that run after App Protect WAF, the most common being NGINX access (allow/deny per IP) and NGINX auth.
-
 ---
 
 ## Request Flow Overview
