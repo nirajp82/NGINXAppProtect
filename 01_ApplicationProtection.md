@@ -7,7 +7,8 @@
    1. [Initial Request Processing by NGINX](#initial-request-processing-by-nginx)
    2. [NGINX App Protect Modules](#nginx-app-protect-modules)
    3. [Processing Order for App Protect DoS and WAF](#processing-order-for-app-protect-dos-and-waf)
-3. [NGINX Context: Loading NGINX App Protect WAF Module](#nginx-context-loading-nginx-app-protect-waf-module)
+3. [NGINX Context](#NGINX-Context)
+4. [Loading NGINX App Protect WAF Module](#nginx-context-loading-nginx-app-protect-waf-module)
 
 ---
 
@@ -45,7 +46,9 @@ If you have both NGINX App Protect DoS and NGINX App Protect WAF installed, then
 
 ---
 
-## NGINX Context: Loading NGINX App Protect WAF Module
+## NGINX Context: 
+
+## Loading NGINX App Protect WAF Module
 
 App Protect works like other NGINX modules in that once you’ve installed it, you still need to load it through the NGINX main configuration file (`/etc/nginx/nginx.conf`). Use the `load_module` directive to do this. Then you also need to turn it on using the `app_protect_enable` directive.
 
