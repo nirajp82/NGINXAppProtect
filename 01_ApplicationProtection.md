@@ -10,6 +10,7 @@
 3. [NGINX Context](#NGINX-Context)
 4. [Loading NGINX App Protect WAF Module](#loading-nginx-app-protect-waf-module)
 5. [Identifying NGINX Processes](#Identifying-nginx-processes)
+6. [NGINX Worker Process Reload](NGINX-Worker-Process-Reload)
 
 ---
 
@@ -91,3 +92,17 @@ ps aux | grep nginx
 | **bd-socket-plugin**    | WAF engine (part of `app-protect-engine`).                |
 | **admd**                | DoS protection process (owned by `nginx` user).           |
 
+## NGINX Worker Process Reload
+
+The `nginx -s reload` command allows you to apply configuration updates without stopping or restarting NGINX. 
+
+- **How it works**:  
+  When you run `nginx -s reload`, NGINX sends a **SIGHUP signal** to the Linux Kernel, which then reloads its process ID (PID).
+  
+- **Error handling**:  
+  If NGINX encounters errors in the configuration, it will not reload and will revert to the previous configuration in memory. This makes the reload command safe to run in production environments.
+
+- **Active connections**:  
+  The reload command does not drop active connections. The primary process forks new worker processes to handle new connections, while old worker processes gracefully complete their tasks and shut down.
+
+This process ensures zero downtime during configuration changes, making it ideal for production systems.
