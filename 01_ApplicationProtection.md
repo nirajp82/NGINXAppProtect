@@ -9,6 +9,7 @@
    3. [Processing Order for App Protect DoS and WAF](#processing-order-for-app-protect-dos-and-waf)
 3. [NGINX Context](#NGINX-Context)
 4. [Loading NGINX App Protect WAF Module](#loading-nginx-app-protect-waf-module)
+5. [Identifying NGINX Processes](#Identifying-nginx-processes)
 
 ---
 
@@ -60,4 +61,33 @@ App Protect works like other NGINX modules in that once you’ve installed it, y
    ```
 
 This will activate the App Protect WAF module and allow it to inspect incoming HTTP requests.
+
+Got it! Here’s a simplified version of your documentation with a Table of Contents:
+
+---
+
+### Identifying NGINX Processes
+
+To display NGINX processes, run:
+
+```bash
+ps aux | grep nginx
+```
+
+### Key NGINX Processes
+
+- **NGINX Master**: Reads and evaluates configuration files, manages worker processes.
+- **NGINX Workers**: Handle and process actual data or requests.
+
+### NGINX App Protect Processes
+
+- **NGINX App Protect WAF**: Identified by the process `bd-socket-plugin` (from the `app-protect-engine` package).
+- **NGINX App Protect DoS**: Identified by the process `admd`, owned by the `nginx` user.
+
+| Process Name           | Description                                               |
+|------------------------|-----------------------------------------------------------|
+| **NGINX Master**        | Manages configurations and worker processes.              |
+| **NGINX Worker**        | Handles incoming requests and serves content.             |
+| **bd-socket-plugin**    | WAF engine (part of `app-protect-engine`).                |
+| **admd**                | DoS protection process (owned by `nginx` user).           |
 
